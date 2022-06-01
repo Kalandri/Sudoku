@@ -1,18 +1,24 @@
 import React from "react";
+import { useAppDispatch } from "../../../../redux/hooks";
+import { useSelector } from "react-redux";
 import styled from "styled-components";
+
+import {
+  selectInitialPuzzle,
+  selectSelectedCell,
+  setSelectedCell,
+} from "../../slice";
+import { isCellReserved } from "../../utils";
 
 interface Props {
   value: number;
   posX: number;
   posY: number;
-  reserved: boolean | undefined;
-  selectedCell: { value: number; posX: number; posY: number } | undefined;
-  highlightCell: (value: number, posX: number, posY: number) => void;
 }
 
-const StyledCell = styled.div<{ value: number; posX: number; posY: number }>`
-  min-height: 50px;
-  min-width: 50px;
+const StyledCell = styled.div<{ posX: number; posY: number }>`
+  min-height: 60px;
+  min-width: 60px;
   display: flex;
   position: relative;
   align-items: center;
@@ -68,40 +74,39 @@ const StyledCellValue = styled.div<{
   posX: number;
   posY: number;
   reserved: boolean | undefined;
-  selectedCell: { value: number; posX: number; posY: number } | undefined;
+  selectedCell: { value: number; posX: number; posY: number };
 }>`
-  width: 20px;
-  height: 20px;
+  width: 25px;
+  height: 25px;
   display: flex;
   align-items: center;
   justify-content: center;
-  border-radius: 20px;
+  border-radius: 100%;
   padding: 10px;
   cursor: default;
+  font-size: 20px;
   ${(props) =>
-    props.selectedCell?.posX === props.posX &&
-    props.selectedCell?.posY === props.posY
+    props.selectedCell.posX === props.posX &&
+    props.selectedCell.posY === props.posY
       ? "background-color: #fc0349;"
-      : props.selectedCell?.value === props.value &&
-        props.selectedCell?.value !== 0
+      : props.selectedCell.value === props.value &&
+        props.selectedCell.value !== 0
       ? "background-color: #fc0349;"
       : props.reserved
       ? "background-color: lightgray;"
       : "background-color: white;"}
 `;
 
-const SudokuCell = ({
-  value,
-  posX,
-  posY,
-  reserved,
-  selectedCell,
-  highlightCell,
-}: Props) => {
+const SudokuCell = ({ value, posX, posY }: Props) => {
+  const dispatch = useAppDispatch();
+  const selectedCell = useSelector(selectSelectedCell);
+  const initialPuzzle = useSelector(selectInitialPuzzle);
+  const reserved = isCellReserved({ posX, posY }, initialPuzzle);
+
   return (
     <StyledCell
-      {...{ value, posX, posY }}
-      onClick={() => highlightCell(value, posX, posY)}
+      {...{ posX, posY }}
+      onClick={() => dispatch(setSelectedCell({ posX, posY }))}
     >
       <StyledCellValue {...{ value, posX, posY, reserved, selectedCell }}>
         {value !== 0 && value}

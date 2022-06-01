@@ -1,38 +1,24 @@
-import React, { useEffect, useState } from "react";
+import React from "react";
+import { useSelector } from "react-redux";
 import styled from "styled-components";
 
-import SudokuCell from "../SudokuCell";
+import { selectProgressPuzzle } from "../../slice";
 
-interface Props {
-  progressPuzzle: number[][] | undefined;
-  selectedCell: { value: number; posX: number; posY: number } | undefined;
-  highlightCell: (value: number, posX: number, posY: number) => void;
-  isCellReserved: (posX: number, posY: number) => boolean | undefined;
-}
+import SudokuCell from "../SudokuCell";
 
 const StyledSudokuGrid = styled.div`
   display: flex;
 `;
 
-const SudokuGrid = ({
-  progressPuzzle,
-  selectedCell,
-  highlightCell,
-  isCellReserved,
-}: Props) => {
+const SudokuGrid = () => {
+  const progressPuzzle = useSelector(selectProgressPuzzle);
+
   return (
     <StyledSudokuGrid>
       {progressPuzzle?.map((row, rowIndex) => (
         <div>
           {row.map((cell, columnIndex) => (
-            <SudokuCell
-              value={cell}
-              posX={rowIndex}
-              posY={columnIndex}
-              reserved={isCellReserved(rowIndex, columnIndex)}
-              selectedCell={selectedCell}
-              highlightCell={highlightCell}
-            />
+            <SudokuCell value={cell} posX={rowIndex} posY={columnIndex} />
           ))}
         </div>
       ))}

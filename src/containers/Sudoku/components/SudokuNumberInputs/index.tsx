@@ -2,19 +2,24 @@ import React from "react";
 import styled from "styled-components";
 import SudokuNumberInput from "./SudokuNumberInput";
 
-const StyledSudokuNumberInputs = styled.div`
+const StyledSudokuNumberRow = styled.div`
   display: flex;
-  flex-grow: 1;
-  flex-shrink: 0;
-  flex-basis: 100%;
 `;
 
 const SudokuNumberInputs = () => {
-  const NumberInputs = [1, 2, 3, 4, 5, 6, 7, 8, 9, 0].map((i) => (
+  const firstRow = [1, 2, 3, 4, 5].map((i) => (
+    <SudokuNumberInput>{i}</SudokuNumberInput>
+  ));
+  const secondRow = [6, 7, 8, 9, 0].map((i) => (
     <SudokuNumberInput>{i}</SudokuNumberInput>
   ));
 
-  return <StyledSudokuNumberInputs>{NumberInputs}</StyledSudokuNumberInputs>;
+  return (
+    <>
+      <StyledSudokuNumberRow>{firstRow}</StyledSudokuNumberRow>
+      <StyledSudokuNumberRow>{secondRow}</StyledSudokuNumberRow>
+    </>
+  );
 };
 
 export default SudokuNumberInputs;
