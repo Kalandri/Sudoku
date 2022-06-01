@@ -87,7 +87,7 @@ const StyledCellValue = styled.div<{
       ? "background-color: #fc0349;"
       : props.reserved
       ? "background-color: lightgray;"
-      : ""}
+      : "background-color: white;"}
 `;
 
 const SudokuCell = ({

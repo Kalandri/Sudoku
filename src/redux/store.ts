@@ -1,9 +1,9 @@
 import { configureStore, ThunkAction, Action } from "@reduxjs/toolkit";
-import counterReducer from "../containers/Counter/counterSlice";
+import sudokuReducer from "../containers/Sudoku/slice";
 
 export const store = configureStore({
   reducer: {
-    counter: counterReducer,
+    sudoku: sudokuReducer,
   },
 });
 

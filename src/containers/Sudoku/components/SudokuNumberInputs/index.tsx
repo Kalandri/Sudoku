@@ -1,20 +1,20 @@
 import React from "react";
 import styled from "styled-components";
+import SudokuNumberInput from "./SudokuNumberInput";
 
-interface Props {
-    children: string;
-    value: number;
-}
+const StyledSudokuNumberInputs = styled.div`
+  display: flex;
+  flex-grow: 1;
+  flex-shrink: 0;
+  flex-basis: 100%;
+`;
 
 const SudokuNumberInputs = () => {
+  const NumberInputs = [1, 2, 3, 4, 5, 6, 7, 8, 9, 0].map((i) => (
+    <SudokuNumberInput>{i}</SudokuNumberInput>
+  ));
 
-}
-const SudokuNumberInput = ({children}: Props) => {
+  return <StyledSudokuNumberInputs>{NumberInputs}</StyledSudokuNumberInputs>;
+};
 
-    return (
-
-    )
-}
-
-const NumberRow = () => 
-    ['1','2','3','4','5','6','7','8','9','X'].map((i) => <SudokuNumberInput value={parseInt(i)}>{i}</SudokuNumberInput>)
+export default SudokuNumberInputs;

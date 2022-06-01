@@ -1,17 +1,13 @@
 import React from "react";
 import styled from "styled-components";
+import SudokuNumberInputs from "../SudokuNumberInputs";
 
 const StyledSudokuButtons = styled.div``;
-
-// const StyledSudokuButton = styled.button``;
-
-
-
 
 const SudokuButtons = () => {
   return (
     <StyledSudokuButtons>
-      
+      <SudokuNumberInputs />
     </StyledSudokuButtons>
   );
 };

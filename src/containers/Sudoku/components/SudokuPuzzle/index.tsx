@@ -1,12 +1,27 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useCallback } from "react";
+import { useSelector } from "react-redux";
 import styled from "styled-components";
+
+import {
+  selectProgressPuzzle,
+  selectSolvedPuzzle,
+  selectInitialPuzzle,
+  selectSelectedCell,
+  setProgressPuzzle,
+  updateProgressPuzzle,
+  setSolvedPuzzle,
+  setInitialPuzzle,
+  setSelectedCell,
+} from "../../slice";
 
 import SudokuGrid from "../SudokuGrid";
 import SudokuButtons from "../SudokuButtons";
 import generateSudoku from "../../../../utils/sudokuGenerator";
+import { isCellReserved } from "../../utils";
 
 const StyledSudokuPuzzle = styled.div`
   display: flex;
+  flex-direction: column;
 `;
 
 interface Props {
@@ -14,14 +29,18 @@ interface Props {
 }
 
 const SudokuPuzzle = ({ difficulty }: Props) => {
-  const [initialPuzzle, setInitialPuzzle] = useState<number[][] | undefined>();
-  const [progressPuzzle, setProgressPuzzle] = useState<
-    number[][] | undefined
-  >();
-  const [solvedPuzzle, setSolvedPuzzle] = useState<number[][] | undefined>();
-  const [selectedCell, setSelectedCell] = useState<
-    { value: number; posX: number; posY: number } | undefined
-  >();
+  const initialPuzzle = useSelector(selectInitialPuzzle);
+  const progressPuzzle = useSelector(selectProgressPuzzle);
+  const solvedPuzzle = useSelector(selectSolvedPuzzle);
+  const selectedCell = useSelector(selectSelectedCell);
+  // const [initialPuzzle, setInitialPuzzle] = useState<number[][] | undefined>();
+  // const [progressPuzzle, setProgressPuzzle] = useState<
+  //   number[][] | undefined
+  // >();
+  // const [solvedPuzzle, setSolvedPuzzle] = useState<number[][] | undefined>();
+  // const [selectedCell, setSelectedCell] = useState<
+  //   { value: number; posX: number; posY: number } | undefined
+  // >();
 
   useEffect(() => {
     const { unsolved, solved } = generateSudoku(difficulty);
@@ -31,36 +50,14 @@ const SudokuPuzzle = ({ difficulty }: Props) => {
     setSolvedPuzzle(solved);
   }, [difficulty]);
 
-  const isCellReserved = (posX: number, posY: number) => {
-    if (initialPuzzle !== undefined) {
-      return initialPuzzle[posX][posY] !== 0 ? true : false;
-    }
-  };
-
-  // Highlights cell or cells based on 3 criteria
-  // 1. Empty cell === only the cell being highlighted
-  // 2. Reserved cell === every single cell with same value highlighted
-  // 3. User Input cell === every single cell with same value highlighted
-  const highlightCell = (value: number, posX: number, posY: number) => {
-    setSelectedCell({ value, posX, posY });
-  };
-
-  const inputToCell = (newValue: number, posX: number, posY: number) => {
-    setProgressPuzzle((prevPuzzle) => {
-      const puzzle = prevPuzzle;
-      if (puzzle !== undefined && !isCellReserved(posX, posY)) {
-        puzzle[posX][posY] = newValue;
-      }
-      return puzzle;
-    });
-  };
+  
 
   return (
     <StyledSudokuPuzzle>
       <SudokuGrid
         {...{ progressPuzzle, selectedCell, highlightCell, isCellReserved }}
       />
-      <SudokuButtons {...{ selectedCell, inputToCell }} />
+      <SudokuButtons {...{ selectedCell }} />
     </StyledSudokuPuzzle>
   );
 };
