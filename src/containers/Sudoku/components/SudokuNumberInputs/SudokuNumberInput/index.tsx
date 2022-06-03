@@ -32,12 +32,16 @@ const StyledSudokuNumberInputValue = styled.div`
   height: 25px;
   padding: 20px;
   border-radius: 100%;
-  border: 2px solid lightgray;
+  border: 2px solid #d5d5d5;
   cursor: pointer;
   font-size: 30px;
+  font-weight: 600;
+  color: #7c7c7c;
 
   &:hover {
-    background-color: lightgray;
+    background-color: #aba072;
+    border: 2px solid #aba072;
+    color: white;
   }
 `;
 

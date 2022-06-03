@@ -75,6 +75,7 @@ const StyledCellValue = styled.div<{
   posY: number;
   reserved: boolean | undefined;
   selectedCell: { value: number; posX: number; posY: number };
+  currentCellIsSelectedCell: boolean;
 }>`
   width: 25px;
   height: 25px;
@@ -84,17 +85,17 @@ const StyledCellValue = styled.div<{
   border-radius: 100%;
   padding: 10px;
   cursor: default;
-  font-size: 20px;
+  font-size: 25px;
+  font-weight: 600;
   ${(props) =>
-    props.selectedCell.posX === props.posX &&
-    props.selectedCell.posY === props.posY
-      ? "background-color: #fc0349;"
+    props.currentCellIsSelectedCell && !props.reserved
+      ? "background-color: #ABA072; color: white;"
       : props.selectedCell.value === props.value &&
         props.selectedCell.value !== 0
-      ? "background-color: #fc0349;"
+      ? "background-color: #BEB8A8; color: #7C7C7C;"
       : props.reserved
-      ? "background-color: lightgray;"
-      : "background-color: white;"}
+      ? "background-color: #E7E7E7; color: #A2A2A2;"
+      : "background-color: white; color: #7A7A7A;"}
 `;
 
 const SudokuCell = ({ value, posX, posY }: Props) => {
@@ -102,13 +103,24 @@ const SudokuCell = ({ value, posX, posY }: Props) => {
   const selectedCell = useSelector(selectSelectedCell);
   const initialPuzzle = useSelector(selectInitialPuzzle);
   const reserved = isCellReserved({ posX, posY }, initialPuzzle);
+  const currentCellIsSelectedCell =
+    selectedCell.posX === posX && selectedCell.posY === posY;
 
   return (
     <StyledCell
       {...{ posX, posY }}
       onClick={() => dispatch(setSelectedCell({ posX, posY }))}
     >
-      <StyledCellValue {...{ value, posX, posY, reserved, selectedCell }}>
+      <StyledCellValue
+        {...{
+          value,
+          posX,
+          posY,
+          reserved,
+          selectedCell,
+          currentCellIsSelectedCell,
+        }}
+      >
         {value !== 0 && value}
       </StyledCellValue>
     </StyledCell>

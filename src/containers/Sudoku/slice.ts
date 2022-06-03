@@ -3,6 +3,7 @@ import { RootState } from "../../redux/store";
 
 export interface SudokuState {
   progressPuzzle: number[][] | undefined;
+  progressPuzzleHistory: Array<number[][]>;
   solvedPuzzle: number[][] | undefined;
   initialPuzzle: number[][] | undefined;
   selectedCell: { value: number; posX: number; posY: number };
@@ -10,6 +11,7 @@ export interface SudokuState {
 
 const initialState: SudokuState = {
   progressPuzzle: undefined,
+  progressPuzzleHistory: [],
   solvedPuzzle: undefined,
   initialPuzzle: undefined,
   selectedCell: { value: 0, posX: 0, posY: 0 },
@@ -30,7 +32,19 @@ export const sudokuSlice = createSlice({
       if (state.progressPuzzle && !action.payload.reserved) {
         state.progressPuzzle[state.selectedCell.posX][state.selectedCell.posY] =
           action.payload.value;
+        state.selectedCell = {
+          ...state.selectedCell,
+          value: action.payload.value,
+        };
+
+        if (state.progressPuzzleHistory.length >= 20) {
+          state.progressPuzzleHistory.shift();
+          state.progressPuzzleHistory.push(state.progressPuzzle);
+        }
       }
+    },
+    undoProgressPuzzle: (state) => {
+      state.progressPuzzle = state.progressPuzzleHistory.pop();
     },
     setSolvedPuzzle: (state, action: PayloadAction<number[][]>) => {
       state.solvedPuzzle = action.payload;
