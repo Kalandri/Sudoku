@@ -30,6 +30,10 @@ export const sudokuSlice = createSlice({
       action: PayloadAction<{ value: number; reserved: boolean | undefined }>
     ) => {
       if (state.progressPuzzle && !action.payload.reserved) {
+        if (state.progressPuzzleHistory.length === 0) {
+          state.progressPuzzleHistory.push(state.progressPuzzle);
+        }
+
         state.progressPuzzle[state.selectedCell.posX][state.selectedCell.posY] =
           action.payload.value;
         state.selectedCell = {
@@ -39,12 +43,17 @@ export const sudokuSlice = createSlice({
 
         if (state.progressPuzzleHistory.length >= 20) {
           state.progressPuzzleHistory.shift();
-          state.progressPuzzleHistory.push(state.progressPuzzle);
         }
+
+        state.progressPuzzleHistory.push(state.progressPuzzle);
       }
     },
     undoProgressPuzzle: (state) => {
       state.progressPuzzle = state.progressPuzzleHistory.pop();
+    },
+    restartProgressPuzzle: (state) => {
+      state.progressPuzzle = state.initialPuzzle;
+      state.progressPuzzleHistory = [];
     },
     setSolvedPuzzle: (state, action: PayloadAction<number[][]>) => {
       state.solvedPuzzle = action.payload;
@@ -69,6 +78,8 @@ export const sudokuSlice = createSlice({
 export const {
   setProgressPuzzle,
   updateProgressPuzzle,
+  undoProgressPuzzle,
+  restartProgressPuzzle,
   setSolvedPuzzle,
   setInitialPuzzle,
   setSelectedCell,
@@ -76,6 +87,8 @@ export const {
 
 export const selectProgressPuzzle = (state: RootState) =>
   state.sudoku.progressPuzzle;
+export const selectProgressPuzzleHistory = (state: RootState) =>
+  state.sudoku.progressPuzzleHistory;
 export const selectSolvedPuzzle = (state: RootState) =>
   state.sudoku.solvedPuzzle;
 export const selectInitialPuzzle = (state: RootState) =>

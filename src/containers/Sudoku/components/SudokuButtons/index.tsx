@@ -1,6 +1,7 @@
 import React from "react";
 import styled from "styled-components";
-import SudokuNumberInputs from "../SudokuNumberInputs";
+import SudokuNumberRow from "../SudokuNumberRow";
+import SudokuTools from "../SudokuTools";
 
 const StyledSudokuButtons = styled.div`
   display: flex;
@@ -13,7 +14,8 @@ const StyledSudokuButtons = styled.div`
 const SudokuButtons = () => {
   return (
     <StyledSudokuButtons>
-      <SudokuNumberInputs />
+      <SudokuNumberRow />
+      <SudokuTools />
     </StyledSudokuButtons>
   );
 };

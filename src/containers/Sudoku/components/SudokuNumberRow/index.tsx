@@ -1,5 +1,5 @@
 import React from "react";
-import { useAppDispatch } from "../../../../../redux/hooks";
+import { useAppDispatch } from "../../../../redux/hooks";
 import { useSelector } from "react-redux";
 import styled from "styled-components";
 
@@ -7,12 +7,16 @@ import {
   selectInitialPuzzle,
   selectSelectedCell,
   updateProgressPuzzle,
-} from "../../../slice";
-import { isCellReserved } from "../../../utils";
+} from "../../slice";
+import { isCellReserved } from "../../utils";
 
 interface Props {
   children: number;
 }
+
+const StyledSudokuNumberRow = styled.div`
+  display: flex;
+`;
 
 const StyledSudokuNumberInput = styled.div`
   display: flex;
@@ -45,6 +49,22 @@ const StyledSudokuNumberInputValue = styled.div`
   }
 `;
 
+const SudokuNumberRow = () => {
+  const firstRow = [1, 2, 3, 4, 5].map((i) => (
+    <SudokuNumberInput>{i}</SudokuNumberInput>
+  ));
+  const secondRow = [6, 7, 8, 9, 0].map((i) => (
+    <SudokuNumberInput>{i}</SudokuNumberInput>
+  ));
+
+  return (
+    <>
+      <StyledSudokuNumberRow>{firstRow}</StyledSudokuNumberRow>
+      <StyledSudokuNumberRow>{secondRow}</StyledSudokuNumberRow>
+    </>
+  );
+};
+
 const SudokuNumberInput = ({ children }: Props) => {
   const dispatch = useAppDispatch();
   const initialPuzzle = useSelector(selectInitialPuzzle);
@@ -68,4 +88,4 @@ const SudokuNumberInput = ({ children }: Props) => {
   );
 };
 
-export default SudokuNumberInput;
+export default SudokuNumberRow;
