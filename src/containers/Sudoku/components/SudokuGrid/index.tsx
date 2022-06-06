@@ -16,9 +16,14 @@ const SudokuGrid = () => {
   return (
     <StyledSudokuGrid>
       {progressPuzzle?.map((row, rowIndex) => (
-        <div>
+        <div key={rowIndex}>
           {row.map((cell, columnIndex) => (
-            <SudokuCell value={cell} posX={rowIndex} posY={columnIndex} />
+            <SudokuCell
+              key={columnIndex}
+              value={cell}
+              posX={rowIndex}
+              posY={columnIndex}
+            />
           ))}
         </div>
       ))}

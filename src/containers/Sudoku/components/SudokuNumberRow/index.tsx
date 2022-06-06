@@ -51,10 +51,10 @@ const StyledSudokuNumberInputValue = styled.div`
 
 const SudokuNumberRow = () => {
   const firstRow = [1, 2, 3, 4, 5].map((i) => (
-    <SudokuNumberInput>{i}</SudokuNumberInput>
+    <SudokuNumberInput key={i}>{i}</SudokuNumberInput>
   ));
   const secondRow = [6, 7, 8, 9, 0].map((i) => (
-    <SudokuNumberInput>{i}</SudokuNumberInput>
+    <SudokuNumberInput key={i}>{i}</SudokuNumberInput>
   ));
 
   return (
