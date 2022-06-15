@@ -54,11 +54,11 @@ const Sudoku = () => {
           <div className="difficulty">
             <input
               type="radio"
-              value="extreme"
+              value="random"
               name="difficulty"
               onChange={(e) => setDifficulty(e.target.value)}
             />
-            <label>Extreme</label>
+            <label>Random</label>
           </div>
         </StyledDifficultySelection>
       )}

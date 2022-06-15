@@ -6,7 +6,7 @@ const ReactRefreshWebpackPlugin = require("@pmmmwh/react-refresh-webpack-plugin"
 const ReactRefreshTypeScript = require("react-refresh-typescript");
 const ForkTsCheckerWebpackPlugin = require("fork-ts-checker-webpack-plugin");
 const isDevelopment = process.env.NODE_ENV === "development";
-const isAnalyze = process.env.BUNDLE_ANALYZE === "true" ? true : false;
+const isAnalyze = process.env.BUNDLE_ANALYZE === "true";
 
 module.exports = {
   mode: isDevelopment ? "development" : "production",
@@ -67,8 +67,7 @@ module.exports = {
       hash: true,
     }),
     isDevelopment && new ReactRefreshWebpackPlugin(),
+    isAnalyze && new BundleAnalyzerPlugin(),
     new ForkTsCheckerWebpackPlugin(),
-  ]
-    .concat(isAnalyze ? [new BundleAnalyzerPlugin()] : [])
-    .filter(Boolean),
+  ].filter(Boolean),
 };

@@ -8,9 +8,10 @@ import {
   setInitialPuzzle,
 } from "../../slice";
 
+import { useGetPuzzleByDifficultyQuery } from "../../api";
+
 import SudokuGrid from "../SudokuGrid";
 import SudokuButtons from "../SudokuButtons";
-import generateSudoku from "../../../../utils/sudokuGenerator";
 
 const StyledSudokuPuzzle = styled.div`
   display: flex;
@@ -24,14 +25,14 @@ interface Props {
 
 const SudokuPuzzle = ({ difficulty }: Props) => {
   const dispatch = useAppDispatch();
+  const { data, error, isLoading } = useGetPuzzleByDifficultyQuery(difficulty);
 
   useEffect(() => {
-    const { unsolved, solved } = generateSudoku(difficulty);
-
-    dispatch(setInitialPuzzle(unsolved));
-    dispatch(setProgressPuzzle(unsolved));
-    dispatch(setSolvedPuzzle(solved));
-  }, [difficulty, dispatch]);
+    if (data) {
+      dispatch(setInitialPuzzle(data.board));
+      dispatch(setProgressPuzzle(data.board));
+    }
+  }, [data, dispatch]);
 
   return (
     <StyledSudokuPuzzle>
