@@ -67,6 +67,12 @@ const StyledCellValue = styled.span<{
   font-size: 1.2em;
   font-weight: 500;
 
+  -moz-user-select: none;
+  -webkit-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+  -o-user-select: none;
+
   @media (min-width: 768px) {
     font-size: 2em;
   }

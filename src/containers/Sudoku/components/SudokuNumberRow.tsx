@@ -42,6 +42,12 @@ const StyledSudokuNumberInputValue = styled.span`
   color: #7c7c7c;
   cursor: pointer;
 
+  -moz-user-select: none;
+  -webkit-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+  -o-user-select: none;
+
   @media (min-width: 768px) {
     font-size: 2em;
     line-height: 75px;
