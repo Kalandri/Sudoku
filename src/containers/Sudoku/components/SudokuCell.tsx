@@ -16,8 +16,23 @@ interface Props {
   posY: number;
 }
 
-const StyledCell = styled.td<{ posX: number; posY: number }>`
+const StyledCell = styled.div<{ posX: number; posY: number }>`
   position: relative;
+  /* display: flex;
+  flex-direction: row; */
+
+  /* display: inline-block; */
+
+  width: 30px;
+  height: 30px;
+  padding: 5px;
+
+  @media (min-width: 768px) {
+    width: 50px;
+    height: 50px;
+  }
+
+  /* border: 1px solid lightgray; */
 
   &:nth-of-type(3n):not(:last-child) {
     border-right: 2px solid green !important;
@@ -43,7 +58,7 @@ const StyledCell = styled.td<{ posX: number; posY: number }>`
   }
 `;
 
-const StyledCellValue = styled.div<{
+const StyledCellValue = styled.span<{
   value: number;
   posX: number;
   posY: number;
@@ -51,17 +66,19 @@ const StyledCellValue = styled.div<{
   selectedCell: { value: number; posX: number; posY: number };
   currentCellIsSelectedCell: boolean;
 }>`
-  width: 1rem;
-  height: 1rem;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  border-radius: 100%;
-  padding: 1rem;
-  margin: 5px;
-  cursor: default;
-  font-size: 1.5em;
-  font-weight: 600;
+  width: 100%;
+  height: 100%;
+  border-radius: 250px;
+  font-size: 1.3em;
+  text-align: center;
+  float: left;
+  line-height: 28px;
+
+  @media (min-width: 768px) {
+    font-size: 1.7em;
+    line-height: 48px;
+  }
+
   ${(props) =>
     props.currentCellIsSelectedCell && !props.reserved
       ? "background-color: #ABA072; color: white;"

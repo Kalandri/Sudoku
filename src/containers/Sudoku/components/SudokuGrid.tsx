@@ -6,26 +6,25 @@ import { selectProgressPuzzle } from "../slice";
 
 import SudokuCell from "./SudokuCell";
 
-const StyledSudokuTable = styled.table`
-  border: none;
-  border-collapse: collapse;
-  padding: 0;
-  margin: 0;
+const StyledSudokuTable = styled.div`
+  display: flex;
+  flex-direction: column;
+  width: min-content;
 
-  tr:first-child td {
+  div:first-child div {
     border-top: 2px solid white !important;
   }
 
-  tr:last-child td {
+  div:last-child div {
     border-bottom: 2px solid white !important;
   }
 
-  tr:nth-of-type(3n):not(:last-child) td {
+  div:nth-of-type(3n):not(:last-child) div {
     border-bottom: 2px solid green !important;
   }
 
   /* Add bottom border for all boxes except the last two */
-  tr:not(:nth-of-type(3n)):not(:last-child) td:after {
+  div:not(:nth-of-type(3n)):not(:last-child) div:after {
     content: "";
     position: absolute;
     bottom: 0;
@@ -36,13 +35,18 @@ const StyledSudokuTable = styled.table`
   }
 `;
 
+const StyledSudokuTableRow = styled.div`
+  display: flex;
+  width: min-content;
+`;
+
 const SudokuGrid = () => {
   const progressPuzzle = useSelector(selectProgressPuzzle);
 
   return (
     <StyledSudokuTable>
       {progressPuzzle?.map((row, rowIndex) => (
-        <tr key={rowIndex}>
+        <StyledSudokuTableRow key={rowIndex}>
           {row.map((cell, columnIndex) => (
             <SudokuCell
               key={columnIndex}
@@ -51,7 +55,7 @@ const SudokuGrid = () => {
               posY={columnIndex}
             />
           ))}
-        </tr>
+        </StyledSudokuTableRow>
       ))}
     </StyledSudokuTable>
   );

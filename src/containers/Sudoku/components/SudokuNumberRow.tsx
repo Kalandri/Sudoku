@@ -19,28 +19,33 @@ const StyledSudokuNumberRow = styled.div`
 `;
 
 const StyledSudokuNumberInput = styled.div`
-  display: flex;
-  position: relative;
-  align-items: center;
-  justify-content: center;
-  min-height: 60px;
-  min-width: 60px;
-  margin: 5px;
+  width: 50px;
+  height: 50px;
+  padding: 10px;
+
+  @media (min-width: 768px) {
+    width: 75px;
+    height: 75px;
+  }
 `;
 
-const StyledSudokuNumberInputValue = styled.div`
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  width: 25px;
-  height: 25px;
-  padding: 20px;
-  border-radius: 100%;
+const StyledSudokuNumberInputValue = styled.span`
+  width: 100%;
+  height: 100%;
+  border-radius: 250px;
   border: 2px solid #d5d5d5;
-  cursor: pointer;
-  font-size: 30px;
   font-weight: 600;
+  font-size: 1.5em;
+  text-align: center;
+  float: left;
+  line-height: 50px;
   color: #7c7c7c;
+  cursor: pointer;
+
+  @media (min-width: 768px) {
+    font-size: 2em;
+    line-height: 75px;
+  }
 
   &:hover {
     background-color: #aba072;

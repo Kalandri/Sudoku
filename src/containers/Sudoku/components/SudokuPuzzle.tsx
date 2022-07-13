@@ -1,6 +1,6 @@
 import React, { useEffect } from "react";
 import { useAppDispatch } from "../../../redux/hooks";
-import styled from "styled-components";
+import styled, { keyframes } from "styled-components";
 import { Spinner } from "phosphor-react";
 
 import { setProgressPuzzle, setInitialPuzzle } from "../slice";
@@ -13,6 +13,24 @@ const StyledSudokuPuzzle = styled.div`
   display: flex;
   flex-direction: column;
   justify-content: center;
+  align-items: center;
+`;
+
+const rotate = keyframes`
+  from {
+    transform: rotate(0deg);
+  }
+
+  to {
+    transform: rotate(360deg);
+  }
+`;
+
+const StyledSpinner = styled(Spinner)`
+  display: inline-block;
+  animation: ${rotate} 2s linear infinite;
+  padding: 2rem 1rem;
+  font-size: 1.2rem;
 `;
 
 interface Props {
@@ -32,7 +50,7 @@ const SudokuPuzzle = ({ difficulty }: Props) => {
 
   return (
     <StyledSudokuPuzzle>
-      {isLoading ? <Spinner size={44} /> : <SudokuGrid />}
+      {isLoading ? <StyledSpinner size={44} /> : <SudokuGrid />}
       <SudokuButtons />
     </StyledSudokuPuzzle>
   );
