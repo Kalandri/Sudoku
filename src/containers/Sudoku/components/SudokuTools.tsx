@@ -1,5 +1,5 @@
 import React from "react";
-import { useAppDispatch } from "../../../../redux/hooks";
+import { useAppDispatch } from "../../../redux/hooks";
 import styled from "styled-components";
 import { ArrowClockwise, ArrowArcLeft } from "phosphor-react";
 
@@ -7,7 +7,7 @@ import {
   selectProgressPuzzleHistory,
   restartProgressPuzzle,
   undoProgressPuzzle,
-} from "../../slice";
+} from "../slice";
 import { useSelector } from "react-redux";
 
 const StyledSudokuTools = styled.div`

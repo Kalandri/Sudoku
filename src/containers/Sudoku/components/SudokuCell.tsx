@@ -1,5 +1,5 @@
 import React from "react";
-import { useAppDispatch } from "../../../../redux/hooks";
+import { useAppDispatch } from "../../../redux/hooks";
 import { useSelector } from "react-redux";
 import styled from "styled-components";
 
@@ -7,8 +7,8 @@ import {
   selectInitialPuzzle,
   selectSelectedCell,
   setSelectedCell,
-} from "../../slice";
-import { isCellReserved } from "../../utils";
+} from "../slice";
+import { isCellReserved } from "../utils";
 
 interface Props {
   value: number;
@@ -16,57 +16,31 @@ interface Props {
   posY: number;
 }
 
-const StyledCell = styled.div<{ posX: number; posY: number }>`
-  min-height: 60px;
-  min-width: 60px;
-  display: flex;
+const StyledCell = styled.td<{ posX: number; posY: number }>`
   position: relative;
-  align-items: center;
-  justify-content: center;
-  background: linear-gradient(
-        to bottom,
-        #000 0px,
-        transparent 0px,
-        ${(props) =>
-            props.posY === 2 || props.posY === 5
-              ? "transparent calc(100% - 3px),"
-              : "transparent calc(100% - 1px),"}
-          ${(props) =>
-            props.posY === 2 || props.posY === 5
-              ? "green calc(100% - 1px)"
-              : props.posY !== 8
-              ? "lightgray calc(100% - 1px)"
-              : "transparent 0px"}
-      )
-      no-repeat,
-    linear-gradient(
-        to right,
-        #000 0px,
-        transparent 0px,
-        ${(props) =>
-            props.posX === 2 || props.posX === 5
-              ? "transparent calc(100% - 3px),"
-              : "transparent calc(100% - 1px),"}
-          ${(props) =>
-            props.posX === 2 || props.posX === 5
-              ? "green calc(100% - 1px)"
-              : props.posX !== 8
-              ? "lightgray calc(100% - 1px)"
-              : "transparent 0px"}
-      )
-      no-repeat;
 
-  background-position: center;
-  background-size: calc(
-        100% -
-          ${(props) => (props.posY === 2 || props.posY === 5 ? "0px" : "20px")}
-      )
-      100%,
-    100%
-      calc(
-        100% -
-          ${(props) => (props.posX === 2 || props.posX === 5 ? "0px" : "20px")}
-      );
+  &:nth-of-type(3n):not(:last-child) {
+    border-right: 2px solid green !important;
+  }
+
+  &:first-child {
+    border-left: 2px solid white;
+  }
+
+  &:last-child {
+    border-right: 2px solid white;
+  }
+
+  /* Add right border for all odd indexed boxes (1,3,5...) */
+  &:not(:nth-of-type(3n)):not(:last-child):before {
+    content: "";
+    position: absolute;
+    right: 0;
+    height: 65%;
+    top: 15%;
+    width: 1px;
+    background-color: #ccc;
+  }
 `;
 
 const StyledCellValue = styled.div<{
@@ -77,15 +51,16 @@ const StyledCellValue = styled.div<{
   selectedCell: { value: number; posX: number; posY: number };
   currentCellIsSelectedCell: boolean;
 }>`
-  width: 25px;
-  height: 25px;
+  width: 1rem;
+  height: 1rem;
   display: flex;
   align-items: center;
   justify-content: center;
   border-radius: 100%;
-  padding: 10px;
+  padding: 1rem;
+  margin: 5px;
   cursor: default;
-  font-size: 25px;
+  font-size: 1.5em;
   font-weight: 600;
   ${(props) =>
     props.currentCellIsSelectedCell && !props.reserved

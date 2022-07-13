@@ -1,5 +1,5 @@
 import React from "react";
-import { useAppDispatch } from "../../../../redux/hooks";
+import { useAppDispatch } from "../../../redux/hooks";
 import { useSelector } from "react-redux";
 import styled from "styled-components";
 
@@ -7,8 +7,8 @@ import {
   selectInitialPuzzle,
   selectSelectedCell,
   updateProgressPuzzle,
-} from "../../slice";
-import { isCellReserved } from "../../utils";
+} from "../slice";
+import { isCellReserved } from "../utils";
 
 interface Props {
   children: number;

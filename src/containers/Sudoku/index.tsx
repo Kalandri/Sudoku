@@ -12,7 +12,9 @@ const StyledSudoku = styled.div`
 `;
 
 const StyledDifficultySelection = styled.div`
+  display: flex;
   flex-direction: column;
+  gap: 1em;
 `;
 
 const Sudoku = () => {
@@ -24,42 +26,30 @@ const Sudoku = () => {
         <SudokuPuzzle difficulty={difficulty} />
       ) : (
         <StyledDifficultySelection>
-          <div className="difficulty">
-            <input
-              type="radio"
-              value="easy"
-              name="difficulty"
-              onChange={(e) => setDifficulty(e.target.value)}
-            />{" "}
-            <label>Easy</label>
-          </div>
-          <div className="difficulty">
-            <input
-              type="radio"
-              value="medium"
-              name="difficulty"
-              onChange={(e) => setDifficulty(e.target.value)}
-            />{" "}
-            <label>Medium</label>
-          </div>
-          <div className="difficulty">
-            <input
-              type="radio"
-              value="hard"
-              name="difficulty"
-              onChange={(e) => setDifficulty(e.target.value)}
-            />{" "}
-            <label>Hard</label>
-          </div>
-          <div className="difficulty">
-            <input
-              type="radio"
-              value="random"
-              name="difficulty"
-              onChange={(e) => setDifficulty(e.target.value)}
-            />
-            <label>Random</label>
-          </div>
+          <button
+            value="easy"
+            onClick={(e) => setDifficulty((e.target as HTMLInputElement).value)}
+          >
+            Easy
+          </button>
+          <button
+            value="medium"
+            onClick={(e) => setDifficulty((e.target as HTMLInputElement).value)}
+          >
+            Medium
+          </button>
+          <button
+            value="hard"
+            onClick={(e) => setDifficulty((e.target as HTMLInputElement).value)}
+          >
+            Hard
+          </button>
+          <button
+            value="random"
+            onClick={(e) => setDifficulty((e.target as HTMLInputElement).value)}
+          >
+            Random
+          </button>
         </StyledDifficultySelection>
       )}
     </StyledSudoku>

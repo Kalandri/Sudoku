@@ -1,7 +1,7 @@
 import React from "react";
 import styled from "styled-components";
-import SudokuNumberRow from "../SudokuNumberRow";
-import SudokuTools from "../SudokuTools";
+import SudokuNumberRow from "./SudokuNumberRow";
+import SudokuTools from "./SudokuTools";
 
 const StyledSudokuButtons = styled.div`
   display: flex;

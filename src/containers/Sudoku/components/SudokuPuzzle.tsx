@@ -1,17 +1,13 @@
 import React, { useEffect } from "react";
-import { useAppDispatch } from "../../../../redux/hooks";
+import { useAppDispatch } from "../../../redux/hooks";
 import styled from "styled-components";
+import { Spinner } from "phosphor-react";
 
-import {
-  setProgressPuzzle,
-  setSolvedPuzzle,
-  setInitialPuzzle,
-} from "../../slice";
+import { setProgressPuzzle, setInitialPuzzle } from "../slice";
+import { useGetPuzzleByDifficultyQuery } from "../api";
 
-import { useGetPuzzleByDifficultyQuery } from "../../api";
-
-import SudokuGrid from "../SudokuGrid";
-import SudokuButtons from "../SudokuButtons";
+import SudokuGrid from "./SudokuGrid";
+import SudokuButtons from "./SudokuButtons";
 
 const StyledSudokuPuzzle = styled.div`
   display: flex;
@@ -36,7 +32,7 @@ const SudokuPuzzle = ({ difficulty }: Props) => {
 
   return (
     <StyledSudokuPuzzle>
-      <SudokuGrid />
+      {isLoading ? <Spinner size={44} /> : <SudokuGrid />}
       <SudokuButtons />
     </StyledSudokuPuzzle>
   );
