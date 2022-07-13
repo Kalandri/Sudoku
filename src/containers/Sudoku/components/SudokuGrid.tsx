@@ -20,7 +20,7 @@ const StyledSudokuTable = styled.div`
   }
 
   div:nth-of-type(3n):not(:last-child) div {
-    border-bottom: 2px solid green !important;
+    border-bottom: 2px solid #aba07a !important;
   }
 
   /* Add bottom border for all boxes except the last two */
@@ -31,7 +31,7 @@ const StyledSudokuTable = styled.div`
     width: 65%;
     left: 15%;
     height: 1px;
-    background-color: #ccc;
+    background-color: #e9e9e9;
   }
 `;
 

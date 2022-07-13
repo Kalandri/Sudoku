@@ -6,9 +6,6 @@ const StyledSudoku = styled.div`
   display: flex;
   justify-content: center; // centers in the flex direction and the default flex-direction is row
   align-items: center; // centers perpendicular to the flex direction
-  height: 100vh; // 100% view height
-  width: 100vw;
-  /* position: absolute; // so it goes behind the current content */
 `;
 
 const StyledDifficultySelection = styled.div`

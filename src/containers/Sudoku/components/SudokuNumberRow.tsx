@@ -21,7 +21,7 @@ const StyledSudokuNumberRow = styled.div`
 const StyledSudokuNumberInput = styled.div`
   width: 50px;
   height: 50px;
-  padding: 10px;
+  padding: 4px;
 
   @media (min-width: 768px) {
     width: 75px;
@@ -33,8 +33,8 @@ const StyledSudokuNumberInputValue = styled.span`
   width: 100%;
   height: 100%;
   border-radius: 250px;
-  border: 2px solid #d5d5d5;
-  font-weight: 600;
+  border: 1px solid #d5d5d5;
+  font-weight: 700;
   font-size: 1.5em;
   text-align: center;
   float: left;
@@ -49,7 +49,7 @@ const StyledSudokuNumberInputValue = styled.span`
 
   &:hover {
     background-color: #aba072;
-    border: 2px solid #aba072;
+    border: 1px solid #aba072;
     color: white;
   }
 `;

@@ -18,32 +18,24 @@ interface Props {
 
 const StyledCell = styled.div<{ posX: number; posY: number }>`
   position: relative;
-  /* display: flex;
-  flex-direction: row; */
-
-  /* display: inline-block; */
-
+  display: flex;
+  justify-content: center;
+  align-items: center;
   width: 30px;
   height: 30px;
-  padding: 5px;
+  padding: 4px;
 
   @media (min-width: 768px) {
     width: 50px;
     height: 50px;
   }
 
-  /* border: 1px solid lightgray; */
-
   &:nth-of-type(3n):not(:last-child) {
-    border-right: 2px solid green !important;
+    border-right: 2px solid #aba07a !important;
   }
 
-  &:first-child {
+  &:first-child:last-child {
     border-left: 2px solid white;
-  }
-
-  &:last-child {
-    border-right: 2px solid white;
   }
 
   /* Add right border for all odd indexed boxes (1,3,5...) */
@@ -54,7 +46,7 @@ const StyledCell = styled.div<{ posX: number; posY: number }>`
     height: 65%;
     top: 15%;
     width: 1px;
-    background-color: #ccc;
+    background-color: #e9e9e9;
   }
 `;
 
@@ -66,17 +58,17 @@ const StyledCellValue = styled.span<{
   selectedCell: { value: number; posX: number; posY: number };
   currentCellIsSelectedCell: boolean;
 }>`
+  display: flex;
+  justify-content: center;
+  align-items: center;
   width: 100%;
   height: 100%;
   border-radius: 250px;
-  font-size: 1.3em;
-  text-align: center;
-  float: left;
-  line-height: 28px;
+  font-size: 1.2em;
+  font-weight: 500;
 
   @media (min-width: 768px) {
-    font-size: 1.7em;
-    line-height: 48px;
+    font-size: 2em;
   }
 
   ${(props) =>

@@ -9,11 +9,6 @@ const StyledSudokuButtons = styled.div`
   flex-direction: column;
   justify-content: center;
   align-items: center;
-
-  /* width: 75%;
-  @media (min-width: 768px) {
-    width: 100%;
-  } */
 `;
 
 const SudokuButtons = () => {
