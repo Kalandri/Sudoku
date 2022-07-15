@@ -7,6 +7,7 @@ export interface SudokuState {
   solvedPuzzle: number[][] | undefined;
   initialPuzzle: number[][] | undefined;
   selectedCell: { value: number; posX: number; posY: number };
+  status: "solved" | "unsolved";
 }
 
 const initialState: SudokuState = {
@@ -15,6 +16,7 @@ const initialState: SudokuState = {
   solvedPuzzle: undefined,
   initialPuzzle: undefined,
   selectedCell: { value: 0, posX: 0, posY: 0 },
+  status: "unsolved",
 };
 
 export const sudokuSlice = createSlice({
@@ -39,6 +41,10 @@ export const sudokuSlice = createSlice({
           ...state.selectedCell,
           value: action.payload.value,
         };
+
+        if (state.progressPuzzle === state.solvedPuzzle) {
+          state.status === "solved";
+        }
 
         if (state.progressPuzzleHistory.length >= 20) {
           state.progressPuzzleHistory.shift();

@@ -1,13 +1,17 @@
 import React, { useEffect } from "react";
 import { useAppDispatch } from "../../../redux/hooks";
-import styled, { keyframes } from "styled-components";
-import { Spinner } from "phosphor-react";
+import { skipToken } from "@reduxjs/toolkit/dist/query";
+import styled from "styled-components";
 
-import { setProgressPuzzle, setInitialPuzzle } from "../slice";
-import { useGetPuzzleByDifficultyQuery } from "../api";
+import { setProgressPuzzle, setInitialPuzzle, setSolvedPuzzle } from "../slice";
+import {
+  useGetPuzzleByDifficultyQuery,
+  useGetPuzzleSolvedStatusQuery,
+} from "../api";
 
 import SudokuGrid from "./SudokuGrid";
 import SudokuButtons from "./SudokuButtons";
+import { StyledSpinner } from "../../../components/Spinner";
 
 const StyledSudokuPuzzle = styled.div`
   display: flex;
@@ -16,41 +20,28 @@ const StyledSudokuPuzzle = styled.div`
   align-items: center;
 `;
 
-const rotate = keyframes`
-  from {
-    transform: rotate(0deg);
-  }
-
-  to {
-    transform: rotate(360deg);
-  }
-`;
-
-const StyledSpinner = styled(Spinner)`
-  display: inline-block;
-  animation: ${rotate} 2s linear infinite;
-  padding: 2rem 1rem;
-  font-size: 1.2rem;
-`;
-
 interface Props {
   difficulty: string;
 }
 
 const SudokuPuzzle = ({ difficulty }: Props) => {
   const dispatch = useAppDispatch();
-  const { data, error, isLoading } = useGetPuzzleByDifficultyQuery(difficulty);
+  const progressPuzzle = useGetPuzzleByDifficultyQuery(difficulty);
+  const solvedPuzzle = useGetPuzzleSolvedStatusQuery(
+    progressPuzzle.data ?? skipToken
+  );
 
   useEffect(() => {
-    if (data) {
-      dispatch(setInitialPuzzle(data.board));
-      dispatch(setProgressPuzzle(data.board));
+    if (progressPuzzle.data && solvedPuzzle.data) {
+      dispatch(setInitialPuzzle(progressPuzzle.data.board));
+      dispatch(setProgressPuzzle(progressPuzzle.data.board));
+      dispatch(setSolvedPuzzle(solvedPuzzle.data.solution));
     }
-  }, [data, dispatch]);
+  }, [progressPuzzle.data, solvedPuzzle.data, dispatch]);
 
   return (
     <StyledSudokuPuzzle>
-      {isLoading ? <StyledSpinner size={44} /> : <SudokuGrid />}
+      {progressPuzzle.isLoading ? <StyledSpinner size={44} /> : <SudokuGrid />}
       <SudokuButtons />
     </StyledSudokuPuzzle>
   );
